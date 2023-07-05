@@ -1,54 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Portfolio</title>
-    <style>
-        .video-list {
-            list-style-type: none;
-            padding: 0;
-        }
+  <title>My Portfolio</title>
+  <style>
+    body {
+      background-color: #F5F5F5;
+    }
 
-        .video-list-item {
-            cursor: pointer;
-            font-weight: bold;
-        }
+    .section {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
 
-        .video-content {
-            display: none;
-        }
-    </style>
+    #section1 {
+      background-image: url(images/section1-image.jpg);
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+
+    #section2 {
+      background-image: url(images/section2-image.jpg);
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+
+    #section3 {
+      background-color: #E0E0E0;
+      text-align: center;
+      padding: 100px 0;
+    }
+  </style>
 </head>
 <body>
-    <ul class="video-list" id="videoList">
-    </ul>
+  <div id="section1" class="section">Section 1</div>
+  <div id="section2" class="section">Section 2</div>
 
-    <script>
-        // JSON 파일을 비동기적으로 가져와서 비디오 목록을 생성합니다.
-        fetch('videos.json')
-            .then(response => response.json())
-            .then(data => {
-                const videoList = document.getElementById('videoList');
-                data.forEach(video => {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('video-list-item');
-                    listItem.textContent = video.title;
-                    listItem.onclick = () => toggleVideo(video.id);
+  <!-- Videos Section -->
+  <div id="videos" class="section">
+    <h1>Videos</h1>
+    <div id="video-list"></div>
+  </div>
 
-                    const videoContent = document.createElement('div');
-                    videoContent.id = video.id;
-                    videoContent.classList.add('video-content');
-                    videoContent.innerHTML = `<iframe width="560" height="315" src="${video.link}" frameborder="0" allowfullscreen></iframe>`;
+  <div id="section3" class="section">Section 3</div>
 
-                    videoList.appendChild(listItem);
-                    videoList.appendChild(videoContent);
-                });
-            })
-            .catch(error => console.error(error));
+  <script>
+    // Video List JSON Data
+    const videos = [
+      {
+        id: "video1",
+        title: "Video 1",
+        link: "https://www.youtube.com/embed/VIDEO_ID_1"
+      },
+      {
+        id: "video2",
+        title: "Video 2",
+        link: "https://www.youtube.com/embed/VIDEO_ID_2"
+      },
+      {
+        id: "video3",
+        title: "Video 3",
+        link: "https://www.youtube.com/embed/VIDEO_ID_3"
+      }
+    ];
 
-        function toggleVideo(videoId) {
-            var videoContent = document.getElementById(videoId);
-            videoContent.style.display = videoContent.style.display === 'block' ? 'none' : 'block';
-        }
-    </script>
+    // Generate Video List
+    const videoListContainer = document.getElementById("video-list");
+    videos.forEach(video => {
+      const iframe = document.createElement("iframe");
+      iframe.src = video.link;
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.frameBorder = "0";
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+      videoListContainer.appendChild(iframe);
+    });
+  </script>
 </body>
 </html>
