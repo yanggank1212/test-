@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Portfolio</title>
+    <style>
+        .video-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .video-list-item {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .video-content {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="video-list" id="videoList">
+    </ul>
+
+    <script>
+        // JSON 파일을 비동기적으로 가져와서 비디오 목록을 생성합니다.
+        fetch('videos.json')
+            .then(response => response.json())
+            .then(data => {
+                const videoList = document.getElementById('videoList');
+                data.forEach(video => {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('video-list-item');
+                    listItem.textContent = video.title;
+                    listItem.onclick = () => toggleVideo(video.id);
+
+                    const videoContent = document.createElement('div');
+                    videoContent.id = video.id;
+                    videoContent.classList.add('video-content');
+                    videoContent.innerHTML = `<iframe width="560" height="315" src="${video.link}" frameborder="0" allowfullscreen></iframe>`;
+
+                    videoList.appendChild(listItem);
+                    videoList.appendChild(videoContent);
+                });
+            })
+            .catch(error => console.error(error));
+
+        function toggleVideo(videoId) {
+            var videoContent = document.getElementById(videoId);
+            videoContent.style.display = videoContent.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
