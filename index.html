@@ -35,52 +35,36 @@
       text-align: center;
       padding: 100px 0;
     }
+
+    #video-list {
+      display: none;
+    }
   </style>
+  <script>
+    function toggleVideoList() {
+      var videoList = document.getElementById("video-list");
+      if (videoList.style.display === "none") {
+        videoList.style.display = "block";
+      } else {
+        videoList.style.display = "none";
+      }
+    }
+  </script>
 </head>
 <body>
   <div id="section1" class="section">Section 1</div>
   <div id="section2" class="section">Section 2</div>
 
   <!-- Videos Section -->
-  <div id="videos" class="section">
+  <div id="videos" class="section" onclick="toggleVideoList()">
     <h1>Videos</h1>
-    <div id="video-list"></div>
+    <div id="video-list">
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_1" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_2" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/VIDEO_ID_3" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
   </div>
 
   <div id="section3" class="section">Section 3</div>
-
-  <script>
-    // Video List JSON Data
-    const videos = [
-      {
-        id: "video1",
-        title: "Video 1",
-        link: "https://youtu.be/lmmhtGFYxo8"
-      },
-      {
-        id: "video2",
-        title: "Video 2",
-        link: "https://youtu.be/yp4jldAWwgY"
-      },
-      {
-        id: "video3",
-        title: "Video 3",
-        link: "https://youtu.be/rZDEn-gZTyg"
-      }
-    ];
-
-    // Generate Video List
-    const videoListContainer = document.getElementById("video-list");
-    videos.forEach(video => {
-      const iframe = document.createElement("iframe");
-      iframe.src = video.link;
-      iframe.width = "560";
-      iframe.height = "315";
-      iframe.frameBorder = "0";
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-      videoListContainer.appendChild(iframe);
-    });
-  </script>
 </body>
 </html>
